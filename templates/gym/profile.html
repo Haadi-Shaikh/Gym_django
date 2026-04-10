@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile | FitCore Gym{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+                            <div>
+                                <p class="text-muted mb-1">Member Profile</p>
+                                <h2 class="fw-bold mb-0">{{ user.get_full_name|default:user.username }}</h2>
+                            </div>
+                            <a href="{% url 'dashboard' %}" class="btn btn-outline-primary mt-3 mt-md-0">Back to Dashboard</a>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="profile-tile">
+                                    <span>Username</span>
+                                    <h5>{{ user.username }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-tile">
+                                    <span>Email</span>
+                                    <h5>{{ user.email }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-tile">
+                                    <span>First Name</span>
+                                    <h5>{{ user.first_name }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-tile">
+                                    <span>Last Name</span>
+                                    <h5>{{ user.last_name }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <h4 class="mb-3">Latest Membership</h4>
+                        {% if latest_subscription %}
+                            <div class="profile-tile">
+                                <span>{{ latest_subscription.plan.name }}</span>
+                                <h5>{{ latest_subscription.status }}</h5>
+                                <p class="mb-0 text-muted">{{ latest_subscription.start_date }} to {{ latest_subscription.end_date }}</p>
+                            </div>
+                        {% else %}
+                            <p class="text-muted mb-0">You have not selected a membership plan yet.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

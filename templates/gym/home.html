@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | FitCore Gym{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container py-5">
+        <div class="row align-items-center g-4 py-4">
+            <div class="col-lg-6">
+                <span class="badge rounded-pill text-bg-light mb-3 px-3 py-2">Simple Gym Management</span>
+                <h1 class="display-5 fw-bold mb-3">Train smarter with a clean membership experience.</h1>
+                <p class="lead text-muted mb-4">Browse plans, create your account, and manage your gym membership from one simple dashboard.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'plans' %}" class="btn btn-primary btn-lg">View Plans</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-dark btn-lg">Go to Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-outline-dark btn-lg">Join Now</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-card p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <p class="text-muted mb-1">Member Experience</p>
+                            <h3 class="mb-0">Fast and easy</h3>
+                        </div>
+                        <div class="stat-pill">Responsive UI</div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="mini-stat">
+                                <h4>Plans</h4>
+                                <p>Clear pricing and duration details.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-stat">
+                                <h4>Dashboard</h4>
+                                <p>Quick membership status tracking.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-stat">
+                                <h4>Profile</h4>
+                                <p>See your account details in one place.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-stat">
+                                <h4>Admin</h4>
+                                <p>Manage plans and subscriptions easily.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Popular Plans</h2>
+                <p class="text-muted mb-0">A few starter options for your members.</p>
+            </div>
+            <a href="{% url 'plans' %}" class="btn btn-outline-primary">See All</a>
+        </div>
+        <div class="row g-4">
+            {% for plan in plans %}
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 plan-card">
+                        <div class="card-body p-4">
+                            <h4 class="card-title">{{ plan.name }}</h4>
+                            <p class="display-6 fw-bold text-primary mb-2">₹{{ plan.price }}</p>
+                            <p class="text-muted mb-4">{{ plan.duration }} days of gym access</p>
+                            <a href="{% url 'select_plan' plan.id %}" class="btn btn-dark w-100">
+                                {% if user.is_authenticated %}Choose Plan{% else %}Login to Choose{% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-light border shadow-sm mb-0">No membership plans added yet. Admin can create them from the Django admin panel.</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

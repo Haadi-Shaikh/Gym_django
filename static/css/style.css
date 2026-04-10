@@ -1,0 +1,100 @@
+:root {
+    --primary-color: #0d6efd;
+    --accent-color: #0f172a;
+    --soft-bg: #f4f7fb;
+    --card-bg: rgba(255, 255, 255, 0.92);
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(13, 110, 253, 0.14), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+    color: #172033;
+    min-height: 100vh;
+}
+
+.app-navbar {
+    background: linear-gradient(135deg, #081120, #152c52);
+    box-shadow: 0 12px 30px rgba(8, 17, 32, 0.18);
+}
+
+.hero-section {
+    padding: 3rem 0 1rem;
+}
+
+.hero-card,
+.dashboard-card,
+.profile-tile,
+.mini-stat,
+.plan-card {
+    border-radius: 1.25rem;
+}
+
+.hero-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(228, 238, 255, 0.95));
+    border: 1px solid rgba(13, 110, 253, 0.08);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+.mini-stat,
+.profile-tile {
+    background: var(--soft-bg);
+    padding: 1rem;
+    height: 100%;
+}
+
+.mini-stat h4,
+.profile-tile h5 {
+    margin-bottom: 0.35rem;
+}
+
+.mini-stat p,
+.profile-tile p,
+.profile-tile span {
+    color: #5b6473;
+    margin-bottom: 0;
+}
+
+.stat-pill {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.plan-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+}
+
+.card {
+    border-radius: 1.25rem;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.table thead th {
+    color: #5b6473;
+    font-weight: 600;
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        padding-top: 2rem;
+    }
+}

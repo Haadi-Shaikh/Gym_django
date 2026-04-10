@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | FitCore Gym{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100 dashboard-card">
+                    <div class="card-body p-4">
+                        <p class="text-muted mb-2">Welcome back</p>
+                        <h2 class="fw-bold">{{ user.first_name|default:user.username }}</h2>
+                        <p class="text-muted mb-4">Here is a quick view of your current membership.</p>
+                        {% if active_subscription %}
+                            <span class="badge text-bg-success mb-3 px-3 py-2">Active Membership</span>
+                            <h4>{{ active_subscription.plan.name }}</h4>
+                            <p class="mb-1"><strong>Start:</strong> {{ active_subscription.start_date }}</p>
+                            <p class="mb-3"><strong>End:</strong> {{ active_subscription.end_date }}</p>
+                            <a href="{% url 'plans' %}" class="btn btn-outline-primary">Change Plan</a>
+                        {% else %}
+                            <span class="badge text-bg-secondary mb-3 px-3 py-2">No Active Membership</span>
+                            <p class="mb-4">Pick a plan to activate your membership.</p>
+                            <a href="{% url 'plans' %}" class="btn btn-primary">Browse Plans</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h3 class="mb-1">Subscription History</h3>
+                                <p class="text-muted mb-0">Recent and past plans associated with your account.</p>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for subscription in subscriptions %}
+                                        <tr>
+                                            <td>{{ subscription.plan.name }}</td>
+                                            <td>{{ subscription.start_date }}</td>
+                                            <td>{{ subscription.end_date }}</td>
+                                            <td>
+                                                <span class="badge {% if subscription.status == 'Active' %}text-bg-success{% else %}text-bg-secondary{% endif %}">
+                                                    {{ subscription.status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">No subscriptions yet.</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
